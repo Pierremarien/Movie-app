@@ -1,15 +1,10 @@
-import Image from "next/image";
+import { MovieCard } from "@/components/MovieCard/MovieCard";
 
 export default function Home() {
   return (
     <div>
       <h1>Next.js + TypeScript + Tailwind CSS + Vercel</h1>
-      <Image
-        src="/vercel.svg"
-        alt="Vercel Logo"
-        width={72}
-        height={16}
-      />
+      <MovieCard />
     </div>
   );
 }

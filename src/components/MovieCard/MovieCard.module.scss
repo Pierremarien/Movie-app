@@ -1,0 +1,17 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 310px;
+  max-width: 500px;
+  height: 300px;
+
+  &__image {
+    position: relative;
+    overflow: hidden;
+    min-width: 310px;
+    max-width: 500px;
+    min-height: 125px;
+    max-height: 280px;
+    border-radius: 5px;
+}
+}
