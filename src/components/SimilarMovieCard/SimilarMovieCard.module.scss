@@ -1,0 +1,38 @@
+@import "../../styles/variable.module.scss";
+
+.card {
+  display: flex;
+  min-width: 310px;
+  max-width: 410px;
+  height: auto;
+  gap: 0.6rem;
+  &__image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 410px;
+    aspect-ratio: 410 / 280;
+    border-radius: 5px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: $small_font_size;
+    &__title {
+    }
+
+    &__stats {
+        display: flex;
+        gap: 0.8rem;
+        font-weight: $thin_font_weight;
+
+      &__vote {
+      }
+
+      &__date {
+      }
+    }
+  }
+}
