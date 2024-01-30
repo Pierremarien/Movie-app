@@ -20,19 +20,37 @@
     flex-direction: column;
     justify-content: space-between;
     font-size: $small_font_size;
+    padding-top: 0.4rem;
+    padding-bottom: 0.9rem;
+
+    &__genre {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 0.1rem;
+
+  
+        &__pill {
+          font-size: 0.6rem;
+          font-weight: $thin_font_weight;
+          text-transform: lowercase;
+          letter-spacing: 0.4px;
+          border: none;
+          border-radius: 10px;
+          padding: 3px;
+        }
+      }
+  
     &__title {
+        font-weight: $bold_font_weight;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
     }
 
     &__stats {
         display: flex;
         gap: 0.8rem;
         font-weight: $thin_font_weight;
-
-      &__vote {
-      }
-
-      &__date {
-      }
     }
   }
 }
