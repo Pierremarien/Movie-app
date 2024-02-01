@@ -1,9 +1,14 @@
-import { SimilarMovieCard } from "@/components/SimilarMovieCard/SimilarMovieCard";
+import { CardGrid } from "@/components/CardGrid/CardGrid";
+import { FiltersGrid } from "@/components/FiltersGrid/FiltersGrid";
+import styles from "./Home.module.scss";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Next.js + TypeScript + Tailwind CSS + Vercel</h1>
-      <SimilarMovieCard />
+    <div className={styles.page}>
+      <FiltersGrid />
+      <section>
+      <CardGrid />
+      </section>
     </div>
   );
 }

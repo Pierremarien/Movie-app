@@ -1,0 +1,14 @@
+@import '../../styles/variable.module.scss';
+
+.accountPill {
+
+    &__pill {
+        color: #fff;
+        background-color: $light_color;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+    }
+}

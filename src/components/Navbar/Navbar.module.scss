@@ -1,0 +1,84 @@
+@import '../../styles/variable.module.scss';
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    z-index: 1000;
+    background-color: none;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    &__arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 33px;
+        width: 33px;
+        border-radius: 50%;
+        border: none;
+        background-color: none;
+        background: none;
+        cursor: pointer;
+
+        &:hover {
+            background-color: lighten($inter_color_light, 10%);
+        }
+    }
+
+    &__center{
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &__searchbutton {
+            display: none;
+        }
+    }
+}
+
+.scrolled {
+    background-color: #0f0f0f;
+}
+@media screen and (max-width: 650px) {
+    .navbar {
+       
+
+        &__center {
+            display: none;
+        }
+
+        &__right {
+            &__searchbutton {
+                display: block;
+                height: 33px;
+                width: 33px;
+                border: 0.5px solid $inter_color_light;
+                border-radius: 50%;
+                background-color: $inter_color_light;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                
+                &:hover {
+                    background-color: lighten($inter_color_light, 10%);
+                }
+            }
+        }
+    }
+    
+}
