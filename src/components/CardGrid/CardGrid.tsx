@@ -1,17 +1,19 @@
 import { MovieCard } from "../MovieCard/MovieCard";
 import styles from "./CardGrid.module.scss";
+import type { Genre, Movie } from "@/utils/types";
 
-export const CardGrid = () => {
+
+interface CardGridProps {
+  movies: Movie[];
+  genres: Genre[];
+}
+
+export const CardGrid: React.FC<CardGridProps> = ({ movies, genres }) => {
   return (
     <div className={styles.grid}>
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
-      <MovieCard />
+      {movies.map(movie => (
+        <MovieCard key={movie.id} movie={movie} genres={genres} />
+      ))}
     </div>
   );
 };

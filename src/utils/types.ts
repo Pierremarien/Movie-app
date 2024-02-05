@@ -1,11 +1,13 @@
-export interface Movie {
+export interface Genre {
     id: number;
-    title: string;
-    genre_ids: number[];
-    backdrop_path: string;
+    name: string;
+  }
+  
+  export interface Movie {
+    id: number;
     poster_path: string;
-    overview: string;
-    release_date: string;
+    title: string;
     vote_average: number;
-    vote_count: number;
-}
+    release_date: string;
+    genre_ids: number[];
+  }

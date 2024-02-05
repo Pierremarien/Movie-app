@@ -1,1 +1,101 @@
 @import "../../styles/variable.module.scss";
+
+.filtersGrid {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &__leftbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+    width: 33px;
+    border-radius: 50%;
+    border: none;
+    background-color: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top: 15%;
+    left: 0.5rem;
+    z-index: 2;
+    -webkit-box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+    -moz-box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+    box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+
+    &:hover {
+      background-color: lighten($inter_color_light, 10%);
+      box-shadow: none;
+    }
+  }
+
+  &__rightbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+    width: 33px;
+    border-radius: 50%;
+    border: none;
+    background-color: none;
+    background: none;
+    cursor: pointer;
+    transform: rotate(180deg);
+    position: absolute;
+    top: 15%;
+    right: 0.5rem;
+    z-index: 2;
+    -webkit-box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+    -moz-box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+    box-shadow: 1px 1px 0px 19px rgba(6, 6, 6, 0.95),
+      inset 1px 1px 0px 100px rgba(6, 6, 6, 0.95);
+
+    &:hover {
+      background-color: lighten($inter_color_light, 10%);
+      box-shadow: none;
+    }
+  }
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: safe start;
+    gap: 0.8rem;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    z-index: 1;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &__button {
+      font-size: $small_font_size;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem;
+      background-color: $inter_color_dark;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: lighten($inter_color_dark, 10%);
+      }
+    }
+  }
+}
+
+.scrolled {
+  display: none;
+}
