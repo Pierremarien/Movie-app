@@ -13,3 +13,19 @@
         z-index: 2;
     }
 }
+
+.login {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background: none;
+    border: 1px solid $light_color;
+    color: $light_color;
+    font-size: $normal_font_size;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #fff;
+    }
+
+}

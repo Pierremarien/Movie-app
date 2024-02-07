@@ -1,31 +1,60 @@
-import React from "react";
+import React, { useState, useEffect, use } from "react";
 import Image from "next/image";
 import styles from "./AccountPill.module.scss";
-import { fetchRequestToken, createSessionId } from "@/app/api/fetchRequestToken";
+import { fetchAccountDetails } from "@/app/api/fetchAccountDetails";
+import { deleteSession } from "@/app/api/deleteSession";
+import { fetchRequestToken } from "@/app/api/fetchRequestToken";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const AccountPill = () => {
-    const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, sessionId, userName, setUserName } = useAuth();
+  const [userInitial, setUserInitial] = useState("");
 
-    const handleLogin = async () => {
-      try {
-        const requestToken = await fetchRequestToken();
-        // Redirect the user for authentication...
-        // Once the user has authenticated and been redirected back to your website:
-        const sessionId = await createSessionId(requestToken);
-        console.log('Session ID:', sessionId);
-        // You now have a session ID and can make authenticated requests on behalf of the user.
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.error('Failed to log in:', error);
+  useEffect(() => {
+    const fetchDetails = async () => {
+      if (isLoggedIn) {
+        const accountDetails = await fetchAccountDetails(sessionId);
+        setUserName(accountDetails.username);
+        const initial = accountDetails.username.charAt(0).toUpperCase();
+        setUserInitial(initial);
       }
     };
+    fetchDetails();
+  }, [isLoggedIn, sessionId]);
 
-  return (
+  const handleLogin = async () => {
+    try {
+      const requestToken = await fetchRequestToken();
+      localStorage.setItem("requestToken", requestToken);
+      window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:3000/approved`;
+    } catch (error) {
+      console.error("Failed to log in:", error);
+    }
+  };
+
+  return isLoggedIn ? (
     <div className={styles.accountPill}>
-      <button className={styles.accountPill__pill} onClick={handleLogin}>
-        P
-      </button>
+      <button className={styles.accountPill__pill}>{userInitial}</button>
+      <div className={styles.accountPill__modal}>
+        <a href="/account" className={styles.accountPill__modal__username}>
+          {" "}
+          {userName}{" "}
+        </a>
+
+        <button
+          className={styles.accountPill__modal__logout}
+          onClick={async () => {
+            await deleteSession(sessionId);
+            window.location.reload();
+          }}
+        >
+          Log Out
+        </button>
+      </div>
     </div>
+  ) : (
+    <button className={styles.login} onClick={handleLogin}>
+      Log In
+    </button>
   );
 };
