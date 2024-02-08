@@ -1,14 +1,16 @@
 import React, { useState, useEffect, use } from "react";
-import Image from "next/image";
 import styles from "./AccountPill.module.scss";
 import { fetchAccountDetails } from "@/app/api/fetchAccountDetails";
 import { deleteSession } from "@/app/api/deleteSession";
 import { fetchRequestToken } from "@/app/api/fetchRequestToken";
 import { useAuth } from "@/contexts/AuthContext";
+import { warnOptionHasBeenMovedOutOfExperimental } from "next/dist/server/config";
 
 export const AccountPill = () => {
-  const { isLoggedIn, sessionId, userName, setUserName } = useAuth();
+  const { isLoggedIn, sessionId, userName, setUserName, setIsLoggedIn } =
+    useAuth();
   const [userInitial, setUserInitial] = useState("");
+  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -22,6 +24,10 @@ export const AccountPill = () => {
     fetchDetails();
   }, [isLoggedIn, sessionId]);
 
+  const openModal = () => {
+    setModalActive(!modalActive);
+  };
+
   const handleLogin = async () => {
     try {
       const requestToken = await fetchRequestToken();
@@ -32,25 +38,42 @@ export const AccountPill = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await deleteSession(sessionId);
+      document.cookie = "sessionId=; max-age=0; path=/";
+      setIsLoggedIn(false);
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
+  };
+
   return isLoggedIn ? (
     <div className={styles.accountPill}>
-      <button className={styles.accountPill__pill}>{userInitial}</button>
-      <div className={styles.accountPill__modal}>
-        <a href="/account" className={styles.accountPill__modal__username}>
-          {" "}
-          {userName}{" "}
-        </a>
+      <button className={styles.accountPill__pill} onClick={openModal}>
+        {userInitial}
+      </button>
+      {modalActive && (
+        <div className={styles.accountPill__modal}>
+          <div className={styles.accountPill__modal__pill}>
+            <p>{userInitial}</p>
+          </div>
+          <div className={styles.accountPill__modal__sidemenu}>
+            <a href="/account" className={styles.accountPill__modal__sidemenu__username}>
+              {" "}
+              {userName}{" "}
+            </a>
 
-        <button
-          className={styles.accountPill__modal__logout}
-          onClick={async () => {
-            await deleteSession(sessionId);
-            window.location.reload();
-          }}
-        >
-          Log Out
-        </button>
-      </div>
+            <button
+              className={styles.accountPill__modal__sidemenu__logout}
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   ) : (
     <button className={styles.login} onClick={handleLogin}>

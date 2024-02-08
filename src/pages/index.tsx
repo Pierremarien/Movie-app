@@ -1,42 +1,85 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { CardGrid } from "@/components/CardGrid/CardGrid";
 import { FiltersGrid } from "@/components/FiltersGrid/FiltersGrid";
 import styles from "./Home.module.scss";
 import { fetchMoviesGenres } from "@/app/api/fetchMoviesGenres";
-import { fetchMovies } from "@/app/api/fetchMovies";
+import { fetchMovies, fetchMoviesByName } from "@/app/api/fetchMovies";
+
 import { Movie } from "@/utils/types";
 
-export default function Home({ genres }: { genres: any }) {
+export default function Home({
+  genres,
+  searchQuery,
+}: {
+  genres: any;
+  searchQuery: string;
+}) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+
+  const resetFilter = () => {
+    setSelectedGenres([]);
+  };
+
+  const selectGenre = (id: number) => {
+    setSelectedGenres((prevGenres) => {
+      if (prevGenres.includes(id)) {
+        return prevGenres.filter((genreId) => genreId !== id);
+      } else {
+        return [...prevGenres, id];
+      }
+    });
+    setMovies([]);
+    setPage(1);
+  };
 
   useEffect(() => {
     const loadMovies = async () => {
       setIsLoading(true);
-      const newMovies = await fetchMovies({ page: page.toString() });
-      setMovies(prevMovies => [...prevMovies, ...newMovies.results]); 
+      let newMovies: { results: Movie[] };
+      if (searchQuery) {
+        setMovies([]);
+        newMovies = await fetchMoviesByName(searchQuery, page);
+      } else {
+        newMovies = await fetchMovies({
+          page: page.toString(),
+          with_genres: selectedGenres.join(","),
+          query: searchQuery,
+        });
+      }
+      setMovies((prevMovies) => [...prevMovies, ...newMovies.results]);
       setIsLoading(false);
     };
     loadMovies();
-  }, [page]);
+  }, [page, selectedGenres, searchQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoading) {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight ||
+        isLoading
+      ) {
         return;
       }
       setPage((prevPage) => prevPage + 1);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isLoading]);
 
   return (
     <div className={styles.page}>
       <section>
-        <FiltersGrid genres={genres} />
+        <FiltersGrid
+          genres={genres}
+          selectGenre={selectGenre}
+          resetFilter={resetFilter}
+          selectedGenres={selectedGenres}
+        />
         <CardGrid genres={genres} movies={movies} />
       </section>
     </div>

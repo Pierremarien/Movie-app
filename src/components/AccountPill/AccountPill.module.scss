@@ -1,31 +1,79 @@
-@import '../../styles/variable.module.scss';
+@import "../../styles/variable.module.scss";
 
 .accountPill {
+  position: relative;
+
+  &__pill {
+    color: #fff;
+    background-color: $light_color;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+    top: 5px;
+    right: 0;
+  }
+
+  &__modal {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    background-color: $inter_color_light;
+    padding: 0.5rem;
+    width: 240px;
+    gap: 1rem;
+    border-radius: 10px;
 
     &__pill {
-        color: #fff;
-        background-color: $light_color;
-        width: 33px;
-        height: 33px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        z-index: 2;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: $light_color;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    &__sidemenu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &__logout {
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        cursor: pointer;
+      }
+
+      &__logout:hover,
+      &__uername:hover {
+        color: $light_color;
+      }
+    }
+  }
 }
 
 .login {
-    width: 80px;
-    height: 30px;
-    border-radius: 5px;
-    background: none;
-    border: 1px solid $light_color;
-    color: $light_color;
-    font-size: $normal_font_size;
-    cursor: pointer;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  background: none;
+  border: 1px solid $light_color;
+  color: $light_color;
+  font-size: $normal_font_size;
+  cursor: pointer;
 
-    &:hover {
-        background-color: #fff;
-    }
-
+  &:hover {
+    background-color: #fff;
+  }
 }

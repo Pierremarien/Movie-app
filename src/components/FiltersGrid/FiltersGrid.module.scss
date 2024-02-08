@@ -77,6 +77,7 @@
       display: none;
     }
 
+
     &__button {
       font-size: $small_font_size;
       font-weight: 700;
@@ -98,4 +99,13 @@
 
 .scrolled {
   display: none;
+}
+
+.highlighted {
+  background-color: lighten($inter_color_dark, 10%);
+  box-shadow: none;
+
+  &:hover {
+    background-color: $inter_color_dark;
+  }
 }

@@ -10,9 +10,17 @@ interface Genre {
 
 interface FiltersGridProps {
   genres: Genre[];
+  resetFilter: () => void;
+  selectGenre: (id: number) => void;
+  selectedGenres: number[];
 }
 
-export const FiltersGrid: React.FC<FiltersGridProps> = ({ genres }) => {
+export const FiltersGrid: React.FC<FiltersGridProps> = ({
+  genres,
+  resetFilter,
+  selectGenre,
+  selectedGenres,
+}) => {
   const [isScrolledLeft, setIsScrolledLeft] = useState(false);
   const [isScrolledRight, setIsScrolledRight] = useState(false);
   const filtersContainerRef = useRef<HTMLDivElement>(null);
@@ -82,10 +90,19 @@ export const FiltersGrid: React.FC<FiltersGridProps> = ({ genres }) => {
         <Image src={`/left.svg`} alt="arrow left" height="20" width="20" />
       </button>
       <div className={styles.filtersGrid__container} ref={filtersContainerRef}>
+        <button
+          className={`${styles.filtersGrid__container__button} ${
+            selectedGenres.length === 0 ? styles.highlighted : ""
+          }`}
+          onClick={resetFilter}
+        >
+          All
+        </button>
         {genres.map((genre) => (
           <button
             key={genre.id}
-            className={styles.filtersGrid__container__button}
+            className={`${styles.filtersGrid__container__button} ${selectedGenres.includes(genre.id) ? styles.highlighted : ''}`} 
+            onClick={() => selectGenre(genre.id)}
           >
             {genre.name}
           </button>

@@ -15,6 +15,7 @@ export default function Approved() {
           const sessionId = await createSessionId(requestToken);
           console.log('Session ID:', sessionId);
           localStorage.removeItem('requestToken');
+          document.cookie = `sessionId=${sessionId}; max-age=604800; path=/`;
           setIsLoggedIn(true);
           setSessionId(sessionId);
           router.push('/');
