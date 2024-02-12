@@ -18,14 +18,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## RoadMap
 
-- adding the authentication
+- add functionality to vote for a movie if logged in and send the data from that vote
 
-- display he loggin button accordingly if logged in or not
+- add comments section to a movie 
 
-- add loggout button
+- add filters buttons logic to similar movies
 
-- add functionality to vote for a movie iff logged in and send the data from that vote
+- redo the fetch on the pagination based on the scroll, check how it wirks with server side rendering
 
-- add filters buttons logic (Need a filter on the different genres, filter by popularity, vote average, Release date (oldest, most recent),)
+- fix the searchbar (some styles got buggued and need to work on the redirection).
 
-- add search filter.
+- add account page to check movies the user voted on and other functionalities

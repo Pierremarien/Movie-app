@@ -1,10 +1,9 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AccountPill.module.scss";
 import { fetchAccountDetails } from "@/app/api/fetchAccountDetails";
 import { deleteSession } from "@/app/api/deleteSession";
 import { fetchRequestToken } from "@/app/api/fetchRequestToken";
 import { useAuth } from "@/contexts/AuthContext";
-import { warnOptionHasBeenMovedOutOfExperimental } from "next/dist/server/config";
 
 export const AccountPill = () => {
   const { isLoggedIn, sessionId, userName, setUserName, setIsLoggedIn } =

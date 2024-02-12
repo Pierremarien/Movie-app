@@ -10,9 +10,11 @@ import { Movie } from "@/utils/types";
 export default function Home({
   genres,
   searchQuery,
+  setSearchQuery,
 }: {
   genres: any;
   searchQuery: string;
+  setSearchQuery: (query: string) => void;
 }) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +23,8 @@ export default function Home({
 
   const resetFilter = () => {
     setSelectedGenres([]);
+    setMovies([]);
+    setSearchQuery("");
   };
 
   const selectGenre = (id: number) => {
@@ -33,14 +37,21 @@ export default function Home({
     });
     setMovies([]);
     setPage(1);
+    setSearchQuery("");
   };
+
+  useEffect(() => {
+    if (searchQuery) {
+      setMovies([]);
+      setPage(1);
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     const loadMovies = async () => {
       setIsLoading(true);
       let newMovies: { results: Movie[] };
       if (searchQuery) {
-        setMovies([]);
         newMovies = await fetchMoviesByName(searchQuery, page);
       } else {
         newMovies = await fetchMovies({
